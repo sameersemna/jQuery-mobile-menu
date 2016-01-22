@@ -2,6 +2,7 @@
 *************************
     Mobile Menu v1.0
     (c) 2015 George Lieu
+    Edited by: Sameer Shemna
     licensed under MIT
 ************************
 ************************/
@@ -43,9 +44,15 @@
                 
                 self.css('width', config.MenuWidth);
                 self.find('.'+mmCssClass+' ul').css('display', 'none');
-                var expandLink = '<span class=\"expand icon-plus\"></span>';
-                self.find('li ul' ).parent().prepend( expandLink );
-                $('.'+mmCssClass).append('<li style="height: 30px;"></li>');
+                var expandLink = '<span class=\"expand fa fa-plus\"></span>';
+                self.find('li>ul').each(function(index){
+                    var ul = $( this );
+                    if ((typeof(ul.parent().html()) !== 'undefined') && (ul.parent().html().indexOf( expandLink ) === -1)){
+                        ul.parent().prepend( expandLink );
+                    }
+                });
+
+                //$('.'+mmCssClass).append('<li style="height: 30px;"></li>');
                 $('.'+mmCssClass+' li:has(span)').each(function(i){
                     $(this).find('a:first').css('padding-right', 55);
                 });
@@ -60,6 +67,8 @@
                 if (docHeight >= totalHeight ) {
                     totalHeight = docHeight;
                 }
+                /*SHS to allow scroll*/
+                totalHeight = $(document).height();
                 return totalHeight;
             }             
             function getMmItemHeight(nn) {
@@ -68,13 +77,13 @@
                     self.find('.'+mmCssClass+' > li:has(span)').each(function(i){
                         var mmItemHeight = $(this).height();
                         var topPadding = (mmItemHeight-expandheight)/2;
-                        $(this).find('span').css({'padding-bottom': topPadding, 'padding-top': topPadding}); 
+                        $(this).find('span').css({'padding-bottom': topPadding, 'padding-top': topPadding});
                     });    
                 }
                 if (nn === 2) {  
                     self.find('.'+mmCssClass+' > li > ul > li:has(span)').each(function(i){
                         var mmItemHeight = $(this).height();
-                        var topPadding = (mmItemHeight-expandheight)/2;  
+                        var topPadding = (mmItemHeight-expandheight)/2;
                         $(this).find('span').css({'padding-bottom': topPadding, 'padding-top': topPadding});
                     });    
                 }        
@@ -86,13 +95,14 @@
                 } else {
                     overlay.addClass('overlay').css('opacity', 0);
                 }                        
-                self.css({display : 'block', overflow : 'hidden'});
+                //self.css({display : 'block', overflow : 'hidden'});
+                self.css({display : 'block', overflow : 'auto'});
                 if (config.FromLeft == true) {
                     if (config.PagePush == true) {
                         page.animate({ left: config.MenuWidth }, config.SlideSpeed, 'linear');
                     }                
                     self.animate({ left: "0" }, config.SlideSpeed, 'linear', function() {
-                        self.css('height', getMmHeight());            
+                        self.css('height', getMmHeight());
                         isOpen = true;
                     });
                 } else {
@@ -100,7 +110,7 @@
                         page.animate({ left: -(config.MenuWidth) }, config.SlideSpeed, 'linear');
                     }                
                     self.animate({ right: "0" }, config.SlideSpeed, 'linear', function() {
-                        self.css('height', getMmHeight());            
+                        self.css('height', getMmHeight());
                         isOpen = true;
                     });
                 }                 
@@ -146,9 +156,9 @@
                     if (secondLevelSpan.hasClass('open') && $(this).next().next().css('display') === 'none') {   
                         $( '.'+mmCssClass+' li ul' ).slideUp();            
                         if( secondLevelSpan.hasClass('open' )) {
-                            secondLevelSpan.removeClass('icon-minus').addClass('icon-plus');
+                            secondLevelSpan.removeClass('fa-minus').addClass('fa-plus');
                         } else {
-                            secondLevelSpan.removeClass('icon-plus').addClass('icon-minus');
+                            secondLevelSpan.removeClass('fa-plus').addClass('fa-minus');
                         }
                         secondLevelSpan.removeClass('open');
                     } 
@@ -162,10 +172,10 @@
                         self.css('height', getMmHeight());
                     }
                 });        
-                if( $( this ).hasClass('icon-plus' )) {
-                    $( this ).removeClass('icon-plus').addClass('icon-minus');
+                if( $( this ).hasClass('fa-plus' )) {
+                    $( this ).removeClass('fa-plus').addClass('fa-minus');
                 } else {
-                    $( this ).removeClass('icon-minus').addClass('icon-plus');
+                    $( this ).removeClass('fa-minus').addClass('fa-plus');
                 }
                 $(this).toggleClass('open'); 
                 if(!expandTowHasOpened) {
@@ -180,9 +190,9 @@
                     if (thirdLevelSpan.hasClass('open') && $(this).next().next().css('display') === 'none') {
                         $('.'+mmCssClass+' li ul ul').slideUp();            
                         if( thirdLevelSpan.hasClass('open')) {
-                            thirdLevelSpan.removeClass('icon-minus').addClass('icon-plus');
+                            thirdLevelSpan.removeClass('fa-minus').addClass('fa-plus');
                         } else {
-                            thirdLevelSpan.removeClass('icon-plus').addClass('icon-minus');
+                            thirdLevelSpan.removeClass('fa-plus').addClass('fa-minus');
                         }
                         thirdLevelSpan.removeClass('open');
                     }
@@ -196,10 +206,10 @@
                         self.css('height', getMmHeight());
                     }
                 });
-                if( $( this ).hasClass('icon-plus' )) {
-                    $( this ).removeClass('icon-plus').addClass('icon-minus');
+                if( $( this ).hasClass('fa-plus' )) {
+                    $( this ).removeClass('fa-plus').addClass('fa-minus');
                 } else {
-                    $( this ).removeClass('icon-minus').addClass('icon-plus');
+                    $( this ).removeClass('fa-minus').addClass('fa-plus');
                 }
                 $(this).toggleClass('open');         
             });    
@@ -214,7 +224,7 @@
                  mmClose();
             });
 
-            $('.'+mmCssClass+' li a.active').parent().children('.expand').removeClass('icon-plus').addClass('icon-minus open');
+            $('.'+mmCssClass+' li a.active').parent().children('.expand').removeClass('fa-plus').addClass('fa-minus open');
             $('.'+mmCssClass+' li a.active').parent().children('ul').css('display', 'block');
         });
     };    
