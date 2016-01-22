@@ -77,23 +77,23 @@
                     self.find('.'+mmCssClass+' > li:has(span)').each(function(i){
                         var mmItemHeight = $(this).height();
                         var topPadding = (mmItemHeight-expandheight)/2;
-                        $(this).find('span').css({'padding-bottom': topPadding, 'padding-top': topPadding});
+                        $(this).find('span.expand').css({'padding-bottom': topPadding, 'padding-top': topPadding});
                     });    
                 }
                 if (nn === 2) {  
                     self.find('.'+mmCssClass+' > li > ul > li:has(span)').each(function(i){
                         var mmItemHeight = $(this).height();
                         var topPadding = (mmItemHeight-expandheight)/2;
-                        $(this).find('span').css({'padding-bottom': topPadding, 'padding-top': topPadding});
+                        $(this).find('span.expand').css({'padding-bottom': topPadding, 'padding-top': topPadding});
                     });    
                 }        
             }            
             function mmOpen() {
                 body.addClass('mmPushBody');                
                 if (config.Overlay == true) {
-                    overlay.addClass('overlay');
+                    overlay.addClass('mmOverlay');
                 } else {
-                    overlay.addClass('overlay').css('opacity', 0);
+                    overlay.addClass('mmOverlay').css('opacity', 0);
                 }                        
                 //self.css({display : 'block', overflow : 'hidden'});
                 self.css({display : 'block', overflow : 'auto'});
@@ -126,7 +126,7 @@
                     }                
                     self.animate({ left: -(config.MenuWidth) }, config.SlideSpeed, 'linear', function() {
                         body.removeClass('mmPushBody');
-                        overlay.css('height', 0).removeClass('overlay');
+                        overlay.css('height', 0).removeClass('mmOverlay');
                         self.css('display', 'none');            
                         isOpen = false;
                     });
@@ -136,7 +136,7 @@
                     }                
                     self.animate({ right: -(config.MenuWidth) }, config.SlideSpeed, 'linear', function() {
                         body.removeClass('mmPushBody');
-                        overlay.css('height', 0).removeClass('overlay');                       
+                        overlay.css('height', 0).removeClass('mmOverlay');
                         self.css('display', 'none');            
                         isOpen = false;
                     });                    
