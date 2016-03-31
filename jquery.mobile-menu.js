@@ -75,8 +75,8 @@
                 expandheight = $('.'+mmCssClass+' span.expand').height();
                 if (nn === 1) { 
                     self.find('.'+mmCssClass+' > li:has(span)').each(function(i){
-                        var mmItemHeight = $(this).height();
-                        var topPadding = (mmItemHeight-expandheight)/2;
+                        var mmItemHeight = $(this).children('a').height();
+                        var topPadding = mmItemHeight/2 + 2.5;
                         $(this).find('span.expand').css({'padding-bottom': topPadding, 'padding-top': topPadding});
                     });    
                 }
