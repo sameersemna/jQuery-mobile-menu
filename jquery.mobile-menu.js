@@ -1,6 +1,6 @@
 /************************
 *************************
-    Mobile Menu v1.0.3
+    Mobile Menu v1.0.4
     (c) 2015 George Lieu
     Edited by: Sameer Shemna
     licensed under MIT
